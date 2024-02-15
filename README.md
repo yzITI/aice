@@ -19,6 +19,7 @@ step {
 Flow {
   _id: 'flow id',
   name: 'flow name',
+  time: Date.now(),
   steps: {
     start: {/* step object */},
     [stepid1]: {/* step object */},
@@ -28,11 +29,13 @@ Flow {
 }
 Data {
   _id: 'data id',
+  time: Date.now(),
   ... // stored properties
 }
 Task {
   _id: 'task id'
   flow: 'flow id',
+  time: Date.now(),
   status: 'running'|'done'|'error',
   error: 'error message',
   state: {/* runtime state object */}
