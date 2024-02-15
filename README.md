@@ -1,6 +1,14 @@
-# aice
+# AICE
 
 Artificial Intelligence Consecutive Engineering
+
+## Motivation
+
+Developing complex systems with large language models (LLMs) often encounters roadblocks in managing countless prompts, parsing intricate responses, and integrating external storage seamlessly. AICE tackles these challenges head-on, offering a framework for artificial intelligence consecutive engineering.
+
+This innovative project visualizes and automates the workflow of consecutive prompting with LLMs, including connections to external storage like MongoDB, enabling long-term memories and reflective abilities in LLM applications.
+
+This project presents a potential solution to bridge the gap between LLMs and traditional programs, opening doors for developers to harness the true potential of modern generative AI.
 
 ## Model
 
