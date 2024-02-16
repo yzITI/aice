@@ -1,5 +1,5 @@
-import srpc from "../srpc.js"
-import model from "../model.js"
+import srpc from '../srpc.js'
+import model from '../model.js'
 
 const md = model('data')
 srpc.data = {}

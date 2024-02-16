@@ -12,6 +12,12 @@ This project presents a potential solution to bridge the gap between LLMs and tr
 
 ## Get Started
 
+### Install Dependence
+
+```
+npm i
+```
+
 ### Config File
 
 Create `config.js` at the root level of this repository
@@ -68,4 +74,13 @@ Task {
 ## API
 
 Use [SRPC](https://github.com/yzITI/srpc) protocol.
+
+```js
+srpc.data.find(filter)
+srpc.flow.getList()
+srpc.flow.get(_id)
+srpc.flow.put(_id, payload)
+srpc.task.getList()
+srpc.task.get(_id)
+```
 
