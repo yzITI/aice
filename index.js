@@ -8,7 +8,6 @@ import srpc from './srpc.js'
 
 srpc({}, 11112)
 
-import './controllers/word.js'
-import './controllers/book.js'
-import './controllers/user.js'
-import './controllers/group.js'
+import './controllers/data.js'
+import './controllers/flow.js'
+import './controllers/task.js'
