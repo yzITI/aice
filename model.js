@@ -1,8 +1,9 @@
 // 2024-02-13 Vampire
 
 import { MongoClient } from 'mongodb'
-import { db, dbName } from './config.js'
-const client = new MongoClient(db)
+import { mongodb } from './config.js'
+const client = new MongoClient(mongodb.dbURL)
+const dbName = mongodb.dbName || 'aice'
 
 async function init () {
   try {

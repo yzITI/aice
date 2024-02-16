@@ -10,6 +10,24 @@ This innovative project visualizes and automates the workflow of consecutive pro
 
 This project presents a potential solution to bridge the gap between LLMs and traditional programs, opening doors for developers to harness the true potential of modern generative AI.
 
+## Get Started
+
+### Config File
+
+Create `config.js` at the root level of this repository
+```js
+export default {
+  mongodb: {
+    db: 'mongodb://localhost:27017/',
+    dbName: 'aice' // optional
+  },
+  openai: {
+    apiKey: 'Your OpenAI apiKey',
+    baseURL: 'OpenAI endpoint' // optional
+  }
+}
+```
+
 ## Model
 
 ```js
@@ -19,11 +37,8 @@ step {
   next: 'step id',
   ... // other properties depend on type
 }
-```
 
-### Database Collections
-
-```js
+// Following are MongoDB collections
 Flow {
   _id: 'flow id',
   name: 'flow name',
@@ -41,7 +56,7 @@ Data {
   ... // stored properties
 }
 Task {
-  _id: 'task id'
+  _id: 'task id',
   flow: 'flow id',
   time: Date.now(),
   status: 'running'|'done'|'error',
@@ -53,3 +68,4 @@ Task {
 ## API
 
 Use [SRPC](https://github.com/yzITI/srpc) protocol.
+
