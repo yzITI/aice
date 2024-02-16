@@ -5,7 +5,7 @@ const mt = model('task')
 srpc.task = {}
 
 srpc.task.getList = async () => {
-  return await mt.find({}, { projection: { _id: 1, flow: 1, status: 1 }})
+  return await mt.find({}, { projection: { _id: 1, flow: 1, status: 1, time: 1 }})
 } 
 
 srpc.task.get = async task => {

@@ -4,6 +4,6 @@ import model from "../model.js"
 const md = model('data')
 srpc.data = {}
 
-srpc.data.get = async data => {
-  return await md.get({ _id: data })
+srpc.data.get = async filter => {
+  return await md.find(filter)
 } 

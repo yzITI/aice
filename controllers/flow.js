@@ -12,7 +12,8 @@ srpc.flow.get = async flow => {
   return await mf.get({ _id: flow })
 }
 
-srpc.flow.put = async (flow, step) => {
-  await mf.put ({ _id: flow }, step)
-  return true
+srpc.flow.put = async (flow, payload) => {
+  if (!payload?.steps?.start) return false
+  payload.time = Date.now()
+  return await mf.put({ _id: flow }, payload)
 }
