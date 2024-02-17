@@ -34,7 +34,9 @@ export default {
 }
 ```
 
-## Model
+## Development
+
+### Model
 
 ```js
 step {
@@ -71,7 +73,7 @@ Task {
 }
 ```
 
-## API
+### API
 
 Use [SRPC](https://github.com/yzITI/srpc) protocol.
 
@@ -82,5 +84,21 @@ srpc.flow.get(_id)
 srpc.flow.put(_id, payload)
 srpc.task.getList()
 srpc.task.get(_id)
+```
+
+### Step Execution
+
+```js
+// @param {Object}: step - step object
+// @param {Object}: state - runtime state object
+// @param {Object}: resource - resource object
+// @return {Object}: result object
+StepExecutor: Function(step, state, resource) => result
+
+result {
+  ok: Boolean,
+  next: 'next step id',
+  error: 'Error Message'
+}
 ```
 
