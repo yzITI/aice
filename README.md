@@ -60,16 +60,21 @@ Flow {
 }
 Data {
   _id: 'data id',
-  time: Date.now(),
   ... // stored properties
 }
 Task {
   _id: 'task id',
   flow: 'flow id',
-  time: Date.now(),
-  status: 'running'|'done'|'error',
-  error: 'error message',
-  state: {/* runtime state object */}
+  step: 'step id',
+  time: Date.now(), // update time
+  create: Date.now(), // create time
+  status: 'running'|'done'|'error'|'aborted',
+  error: 'error message', // optional
+  state: {/* runtime state object */},
+  count: Number,
+  maxCount: Number, 
+  maxTime: Number, // in ms
+  endStep: 'step id' // optional
 }
 ```
 
@@ -79,11 +84,18 @@ Use [SRPC](https://github.com/yzITI/srpc) protocol.
 
 ```js
 srpc.data.find(filter)
+srpc.data.put(_id, data)
+srpc.data.update(_id, data)
+srpc.data.del(filter)
+
 srpc.flow.getList()
 srpc.flow.get(_id)
 srpc.flow.put(_id, payload)
+
 srpc.task.getList()
 srpc.task.get(_id)
+srpc.task.start(task)
+srpc.task.abort(_id)
 ```
 
 ### Step Execution
@@ -91,9 +103,13 @@ srpc.task.get(_id)
 ```js
 // @param {Object}: step - step object
 // @param {Object}: state - runtime state object
-// @param {Object}: resource - resource object
+// @param {Object}: control - control object
 // @return {Object}: result object
-StepExecutor: Function(step, state, resource) => result
+StepExecutor: Function(step, state, control) => result
+
+control {
+  // TBD
+}
 
 result {
   ok: Boolean,
