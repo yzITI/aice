@@ -12,13 +12,11 @@ This project presents a potential solution to bridge the gap between LLMs and tr
 
 ## Get Started
 
-### Install Dependence
+Install dependence
 
 ```
 npm i
 ```
-
-### Config File
 
 Create `config.js` at the root level of this repository
 ```js
@@ -34,7 +32,12 @@ export default {
 }
 ```
 
-## Development
+Run the AICE server
+```
+node .
+```
+
+## Development Reference
 
 ### Model
 
@@ -67,14 +70,32 @@ Task {
   flow: 'flow id',
   step: 'step id',
   time: Date.now(), // update time
-  create: Date.now(), // create time
+  start: Date.now(), // start time
   status: 'running'|'done'|'error'|'aborted',
-  error: 'error message', // optional
-  state: {/* runtime state object */},
+  message: 'termination message (error)',
+  state: JSON.stringify({/* runtime state object */}),
+  log: JSON.stringify({/* runtime log object */}),
   count: Number,
-  maxCount: Number, 
-  maxTime: Number, // in ms
+  maxCount: Number, // default 100
+  maxTime: Number, // in ms, default 3600e3
   endStep: 'step id' // optional
+}
+
+// Following are StepExecutor related
+// @param {Object}: step - step object
+// @param {Object}: state - runtime state object
+// @param {Object}: log - log object
+// @return {Object}: result object
+StepExecutor: Function(step, state, log) => result
+
+log {
+  // TBD
+}
+
+result {
+  ok: Boolean,
+  next: 'next step id',
+  error: 'Error Message'
 }
 ```
 
@@ -94,27 +115,6 @@ srpc.flow.put(_id, payload)
 
 srpc.task.getList()
 srpc.task.get(_id)
-srpc.task.start(task)
+srpc.task.start(task) // don't JSON.stringify
 srpc.task.abort(_id)
 ```
-
-### Step Execution
-
-```js
-// @param {Object}: step - step object
-// @param {Object}: state - runtime state object
-// @param {Object}: control - control object
-// @return {Object}: result object
-StepExecutor: Function(step, state, control) => result
-
-control {
-  // TBD
-}
-
-result {
-  ok: Boolean,
-  next: 'next step id',
-  error: 'Error Message'
-}
-```
-
