@@ -1,0 +1,25 @@
+{
+	"name": "template-svelte",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^3.1.1",
+		"@sveltejs/kit": "^2.5.2",
+		"autoprefixer": "^10.4.17",
+		"postcss": "^8.4.35",
+		"svelte": "5.0.0-next.68",
+		"tailwindcss": "^3.4.1",
+		"vite": "^5.1.4"
+	},
+	"type": "module",
+	"dependencies": {
+		"@mdi/js": "^7.4.47",
+		"@sveltejs/vite-plugin-svelte": "^3.0.2",
+		"ace.svelte": "^0.1.1"
+	}
+}
