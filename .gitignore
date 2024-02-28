@@ -133,3 +133,4 @@ dist
 pnpm-lock.yaml
 package-lock.json
 config.js
+.svelte-kit
