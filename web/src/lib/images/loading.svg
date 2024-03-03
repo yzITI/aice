@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgb(241, 242, 243); display: block;" width="160px" height="160px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+<rect x="4" y="4" width="44" height="44" fill="#515151">
+  <animate attributeName="fill" values="#c9c9c9;#515151;#515151" keyTimes="0;0.25;1" dur="1s" repeatCount="indefinite" begin="0s" calcMode="discrete"></animate>
+</rect><rect x="52" y="4" width="44" height="44" fill="#515151">
+  <animate attributeName="fill" values="#c9c9c9;#515151;#515151" keyTimes="0;0.25;1" dur="1s" repeatCount="indefinite" begin="0.25s" calcMode="discrete"></animate>
+</rect><rect x="4" y="52" width="44" height="44" fill="#515151">
+  <animate attributeName="fill" values="#c9c9c9;#515151;#515151" keyTimes="0;0.25;1" dur="1s" repeatCount="indefinite" begin="0.75s" calcMode="discrete"></animate>
+</rect><rect x="52" y="52" width="44" height="44" fill="#515151">
+  <animate attributeName="fill" values="#c9c9c9;#515151;#515151" keyTimes="0;0.25;1" dur="1s" repeatCount="indefinite" begin="0.5s" calcMode="discrete"></animate>
+</rect>
+</svg>

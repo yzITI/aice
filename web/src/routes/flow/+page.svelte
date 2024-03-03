@@ -2,13 +2,17 @@
   import srpc from '$lib/utilities/srpc.js'
   import moment from 'moment'
   import { random } from '$lib/utilities/crypto.js'
+  import S from '$lib/S.svelte'
   import { AIcon } from 'ace.svelte'
   import { mdiTrashCanOutline } from '@mdi/js'
+  import swal from 'sweetalert2'
 
   let list = $state([])
   async function getList () {
+    S.loading = 'Loading flow list'
     list = await srpc.flow.getList()
     list.sort((a, b) => b.time - a.time)
+    S.loading = false
   }
   getList()
 
@@ -22,15 +26,27 @@
         start: {}
       }
     }
+    S.loading = 'Creating'
     await srpc.flow.put(_id, flow)
     list.unshift(flow)
+    S.loading = false
   }
 
   const parseTime = t => moment(t).format('YYYY-MM-DD HH:mm:ss')
 
   async function del (i) {
-    await srpc.flow.del(list[i]._id)
+    const flow = list[i]
+    const { isConfirmed } = await swal.fire({
+      title: 'Dangerous Operation',
+      html: `You are deleting <b>${flow.name}</b>`,
+      icon: 'warning',
+      showCancelButton: true
+    })
+    if (!isConfirmed) return
+    S.loading = 'Deleting'
+    await srpc.flow.del(flow._id)
     list.splice(i, 1)
+    S.loading = false
   }
 </script>
 
