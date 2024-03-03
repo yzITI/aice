@@ -17,3 +17,7 @@ srpc.flow.put = async (_id, payload) => {
   payload.time = Date.now()
   return await mf.put({ _id }, payload)
 }
+
+srpc.flow.del = async _id => {
+  return await mf.del({ _id })
+}

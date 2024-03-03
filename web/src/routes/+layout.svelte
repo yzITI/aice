@@ -1,7 +1,7 @@
 <script>
   import '../index.css'
   import { LS } from '$lib/state.svelte'
-  import srpc from '$lib/srpc.js'
+  import srpc from '$lib/utilities/srpc.js'
   if (LS.AICEURL) srpc(LS.AICEURL) // for debug use
 </script>
 

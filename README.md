@@ -112,6 +112,7 @@ srpc.data.del(filter)
 srpc.flow.getList()
 srpc.flow.get(_id)
 srpc.flow.put(_id, payload)
+srpc.flow.del(_id)
 
 srpc.task.getList()
 srpc.task.get(_id)

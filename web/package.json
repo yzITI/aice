@@ -20,6 +20,7 @@
 	"dependencies": {
 		"@mdi/js": "^7.4.47",
 		"@sveltejs/vite-plugin-svelte": "^3.0.2",
-		"ace.svelte": "^0.1.1"
+		"ace.svelte": "^0.1.1",
+		"moment": "^2.30.1"
 	}
 }
