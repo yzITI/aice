@@ -3,8 +3,10 @@ const mf = model('flow'), mt = model('task'), md = model('data')
 
 // executor list
 import gptExecutor from './gpt.js'
+import passExecutor from './pass.js'
 const executors = {
-  gpt: gptExecutor
+  gpt: gptExecutor,
+  pass: passExecutor
 }
 
 // Each call execute only one step, it will call itself to execute next step.
@@ -34,7 +36,7 @@ const exec = async _id => {
     // check step execution failure
     if (!result.ok) return terminate('error', result.error)
     // check termination
-    if (!result.next) return terminate('done', 'Task terminated by the last step')
+    if (!result.next) return terminate('done', 'Task terminated by step=' + task.step)
     // check count limit
     if (task.count + 1 >= task.maxCount) return terminate('done', 'Task terminated by maxCount=' + task.maxCount)
     // check time limit

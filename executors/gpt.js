@@ -1,9 +1,10 @@
+// step{ model, prompt, output, next }
 import OpenAI from 'openai'
 import config from '../config.js'
 
 const openai = new OpenAI(config.openai)
 
-export default async (step, state, control) => {
+export default async (step, state, log) => {
   const result = { next: step.next }
   try {
     const completion = await openai.chat.completions.create({

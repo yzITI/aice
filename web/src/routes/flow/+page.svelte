@@ -1,11 +1,12 @@
 <script>
+  import { goto } from '$app/navigation'
   import srpc from '$lib/utilities/srpc.js'
+  import S from '$lib/S.svelte'
+  import swal from 'sweetalert2'
   import moment from 'moment'
   import { random } from '$lib/utilities/crypto.js'
-  import S from '$lib/S.svelte'
   import { AIcon } from 'ace.svelte'
-  import { mdiTrashCanOutline } from '@mdi/js'
-  import swal from 'sweetalert2'
+  import { mdiTrashCanOutline, mdiCodeTags } from '@mdi/js'
 
   let list = $state([])
   async function getList () {
@@ -23,7 +24,11 @@
       name: 'New flow',
       time: Date.now(),
       steps: {
-        start: {}
+        start: {
+          type: 'pass',
+          comment: 'Initial step',
+          next: ''
+        }
       }
     }
     S.loading = 'Creating'
@@ -34,7 +39,8 @@
 
   const parseTime = t => moment(t).format('YYYY-MM-DD HH:mm:ss')
 
-  async function del (i) {
+  async function del (i, e) {
+    e.stopPropagation()
     const flow = list[i]
     const { isConfirmed } = await swal.fire({
       title: 'Dangerous Operation',
@@ -48,6 +54,11 @@
     list.splice(i, 1)
     S.loading = false
   }
+
+  function gotoFlow (e, flow, route = '') {
+    e.stopPropagation()
+    goto('/flow/' + flow._id + '/' + route)
+  }
 </script>
 
 <div class="p-6 bg-gray-100 min-h-screen">
@@ -57,14 +68,19 @@
   </div>
   <div>
     {#each list as flow, i}
-      <div class="my-2 p-2 shadow all-transition hover:shadow-md hover:bg-amber-50 rounded bg-white flex items-center justify-between cursor-pointer">
+      <div class="my-2 p-2 shadow all-transition hover:shadow-md hover:bg-amber-50 rounded bg-white flex items-center justify-between cursor-pointer" onclick={e => gotoFlow(e, flow)}>
         <div>
           <div class="text-lg font-bold">{flow.name}</div>
           <div class="text-xs text-gray-500">{parseTime(flow.time)}</div>
         </div>
-        <button class="p-1" onclick={() => del(i)}>
-          <AIcon path={mdiTrashCanOutline} size="1.8rem" class="text-red-600"></AIcon>
-        </button>
+        <div class="flex items-center">
+          <button class="p-1 rounded hover:bg-amber-100 transition-all" onclick={e => gotoFlow(e, flow, 'yaml')}>
+            <AIcon path={mdiCodeTags} size="1.8rem" class="text-blue-600"></AIcon>
+          </button>
+          <button class="p-1 rounded hover:bg-amber-100 transition-all" onclick={e => del(i, e)}>
+            <AIcon path={mdiTrashCanOutline} size="1.8rem" class="text-red-600"></AIcon>
+          </button>
+        </div>
       </div>
     {/each}
   </div>
