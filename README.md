@@ -12,12 +12,6 @@ This project presents a potential solution to bridge the gap between LLMs and tr
 
 ## Get Started
 
-Install dependence
-
-```
-npm i
-```
-
 Create `config.js` at the root level of this repository
 ```js
 export default {
@@ -32,9 +26,15 @@ export default {
 }
 ```
 
-Run the AICE server
+Run AICE server
 ```
-node .
+npm i && node .
+```
+
+
+Run AICE web page (Svelte)
+```
+cd web && npm i && npm run dev
 ```
 
 ## Development Reference
