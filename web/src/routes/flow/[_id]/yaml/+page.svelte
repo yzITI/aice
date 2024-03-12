@@ -23,6 +23,7 @@
   async function save () {
     S.loading = 'Saving...'
     const payload = yaml.load(yml)
+    delete payload._id
     const res = await srpc.flow.put(data._id, payload)
     S.loading = false
     if (!res) swal.fire('Error', 'Failed to save your flow', 'error')
