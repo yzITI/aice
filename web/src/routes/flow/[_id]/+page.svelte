@@ -54,7 +54,7 @@
               <input bind:value={step.comment} class="block w-full text-xs outline-none opacity-60 px-1" placeholder="comment">
             </div>
             <button>
-              <AIcon path={mdiTrashCanOutline} size="1.5rem" class="text-red-600"></AIcon>
+              <AIcon path={mdiTrashCanOutline} size="1.5rem" class="text-red-600 opacity-75"></AIcon>
             </button>
           </div>
         {/each}
