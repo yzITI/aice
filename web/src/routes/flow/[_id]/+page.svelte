@@ -1,15 +1,18 @@
 <script>
   import srpc from '$lib/utilities/srpc.js'
+  import { goto } from '$app/navigation'
   import { getChains } from '$lib/utilities/graph.js'
   import S from '$lib/S.svelte'
   import swal from 'sweetalert2'
   import moment from 'moment'
   import { AIcon } from 'ace.svelte'
-  import { mdiTrashCanOutline, mdiCodeTags } from '@mdi/js'
+  import logoImg from '$lib/images/logo.svg'
+  import { mdiTrashCanOutline, mdiCodeTags, mdiChevronRight, mdiChevronDown, mdiCloseCircleOutline } from '@mdi/js'
+  import steps from '$lib/utilities/steps.js'
   const parseTime = t => moment(t).format('YYYY-MM-DD HH:mm:ss')
 
   let { data } = $props()
-  let flow = $state({}), step = $state({})
+  let flow = $state({})
   let stepGraph = $state([])
 
   async function fetch () {
@@ -22,20 +25,34 @@
     console.log(stepGraph)
   }
   fetch()
-
-  async function choose (i, j) {
-    step = flow.steps[stepGraph[i][j]]
-  }
 </script>
 
 <div class="p-6 min-h-screen flex flex-col bg-gray-100">
-  <h1 class="text-2xl font-bold my-2">{flow.name}</h1>
+  <div class="flex items-center">
+    <img alt="logo" class="w-20 cursor-pointer" onclick={() => goto('/')} src={logoImg}>
+    <input class="text-2xl px-2 grow font-bold m-2 text-black"  bind:value={flow.name}>
+  </div>
+  
   <div>
     <div class="w-1/4">
       {#each stepGraph as chain, i}
         {#each chain as stepid, j}
-          <div class="bg-white flex my-1 p-2 rounded justify-between items-center shadow cursor-pointer all-transition hover:shadow-md">
-            <div>{stepid}</div>
+          {@const step = flow.steps[stepid]}
+          <div class="bg-white flex my-1 py-1 px-2 rounded justify-between items-center shadow cursor-pointer all-transition hover:shadow-md">
+            <div class="flex flex-col grow">
+              <div class="flex items-center m-0">
+                <AIcon path={steps[step.type].icon} size="1.2rem" color="#333"></AIcon>
+                <div class="font-bold ml-1px">{step.type}</div>
+                <code class="ml-2 mr-1 text-xs bg-gray-100 text-gray-500 px-1 select-all">{stepid}</code>
+                <div class={'flex items-center ' + (step.next ? (j === chain.length - 1 ? 'text-blue-600' : 'text-green-600') : 'text-red-600')}>
+                  <AIcon path={step.next ? (j === chain.length - 1 ? mdiChevronRight : mdiChevronDown) : mdiCloseCircleOutline} size="1.1rem"></AIcon>
+                  {#if j === chain.length - 1}
+                    <code class="mr-2 text-xs select-all">{step.next}</code>
+                  {/if}
+                </div>
+              </div>
+              <input bind:value={step.comment} class="block w-full text-xs outline-none opacity-60 px-1" placeholder="comment">
+            </div>
             <button>
               <AIcon path={mdiTrashCanOutline} size="1.5rem" class="text-red-600"></AIcon>
             </button>
