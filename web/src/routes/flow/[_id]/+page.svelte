@@ -25,6 +25,17 @@
     console.log(stepGraph)
   }
   fetch()
+
+  function del (e, stepid) {
+    e.stopPropagation()
+    for (const id in flow.steps) {
+      if (stepid === id) continue
+      const s = flow.steps[id], next = flow.steps[stepid].next
+      if (s.next === stepid) s.next = (next === id ? '' : next) 
+    }
+    delete flow.steps[stepid]
+    stepGraph = getChains(flow.steps)
+  }
 </script>
 
 <div class="p-6 min-h-screen flex flex-col bg-gray-100">
@@ -37,8 +48,9 @@
     <div class="w-1/4">
       {#each stepGraph as chain, i}
         {#each chain as stepid, j}
-          {@const step = flow.steps[stepid]}
-          <div class="bg-white flex my-1 py-1 px-2 rounded justify-between items-center shadow cursor-pointer all-transition hover:shadow-md">
+          {#if flow.steps[stepid]}
+            {@const step = flow.steps[stepid]}
+            <div class="bg-white flex my-1 py-1 px-2 rounded justify-between items-center shadow cursor-pointer all-transition hover:shadow-md">
             <div class="flex flex-col grow">
               <div class="flex items-center m-0">
                 <AIcon path={steps[step.type].icon} size="1.2rem" color="#333"></AIcon>
@@ -53,10 +65,13 @@
               </div>
               <input bind:value={step.comment} class="block w-full text-xs outline-none opacity-60 px-1" placeholder="comment">
             </div>
-            <button>
-              <AIcon path={mdiTrashCanOutline} size="1.5rem" class="text-red-600 opacity-75"></AIcon>
-            </button>
-          </div>
+            {#if stepid !== 'start'}
+              <button onclick={e => del(e, stepid)}>
+                <AIcon path={mdiTrashCanOutline} size="1.5rem" class="text-red-600 opacity-75"></AIcon>
+              </button>
+            {/if}
+            </div>
+          {/if}
         {/each}
       <hr class="my-2">
       {/each}
