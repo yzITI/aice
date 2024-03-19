@@ -10,6 +10,14 @@ This innovative project visualizes and automates the workflow of consecutive pro
 
 This project presents a potential solution to bridge the gap between LLMs and traditional programs, opening doors for developers to harness the true potential of modern generative AI.
 
+## Concept
+
+- **Step** is the unit of operation (like instructions), which is designed for specific functions like calling GPT or process strings with Regex.
+- **Flow** is a sequence of steps (like source code), so that several steps can be executed automatically.
+- **Task** is an instance of execution (like running program), describing one particular run of some steps in a flow.
+  - **state** is the runtime memory of one task.
+- **Data** is a persistent storage, so that flows can store and retrive data through particular steps (`store` & `query`).
+
 ## Get Started
 
 Create `config.js` at the root level of this repository
@@ -114,7 +122,7 @@ srpc.flow.get(_id)
 srpc.flow.put(_id, payload)
 srpc.flow.del(_id)
 
-srpc.task.getList()
+srpc.task.getList(before)
 srpc.task.get(_id)
 srpc.task.start(task) // don't JSON.stringify
 srpc.task.abort(_id)
