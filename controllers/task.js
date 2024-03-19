@@ -6,8 +6,13 @@ import crypto from 'crypto'
 const mt = model('task'), mf = model('flow')
 srpc.task = {}
 
-srpc.task.getList = async () => {
-  return await mt.find({}, { projection: { _id: 1, flow: 1, status: 1, time: 1 }})
+srpc.task.getList = async before => {
+  if (!before) before = Date.now()
+  return await mt.find({ time: { $lte: before } }, {
+    sort: { time: -1 },
+    limit: 1000,
+    projection: { _id: 1, flow: 1, status: 1, time: 1 }
+  })
 } 
 
 srpc.task.get = async _id => {
