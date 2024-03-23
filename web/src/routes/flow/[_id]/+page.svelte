@@ -79,7 +79,7 @@
     </div>
     <div class="grow px-4">
       <div>
-        <svelte:component this={stepsIndex?.[currentStep?.type]?.component} />
+        <svelte:component this={stepsIndex?.[currentStep?.type]?.component} step={currentStep} />
       </div>
     </div>
   </div>
